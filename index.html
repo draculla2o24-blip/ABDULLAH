@@ -414,54 +414,6 @@
             color: var(--text-gray);
         }
         
-        /* Testimonials Section */
-        .testimonials {
-            background: var(--primary-light);
-            padding: 80px 0;
-        }
-        
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .testimonial-card {
-            background: var(--primary-dark);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .testimonial-text {
-            color: var(--text-gray);
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        
-        .author-info h4 {
-            color: var(--accent-green);
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-        }
-        
         /* Contact Section */
         .contact {
             background-color: var(--primary-light);
@@ -645,6 +597,85 @@
             transform: translateY(-3px);
         }
         
+        /* أنماط جديدة لنظام المصادقة للوحة التحكم فقط */
+        .admin-login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .admin-login-form {
+            background: var(--primary-light);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .admin-login-form h2 {
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+        }
+        
+        .admin-login-form input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            background-color: var(--primary-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+        
+        .admin-login-form button {
+            width: 100%;
+        }
+        
+        .admin-login-error {
+            color: #ff6b6b;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .admin-logout {
+            background: #ff6b6b;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-right: 15px;
+        }
+        
+        .admin-logout:hover {
+            background: #ff5252;
+        }
+        
+        .admin-only {
+            display: none;
+        }
+        
+        .admin-logged-in .admin-only {
+            display: block;
+        }
+        
+        .admin-logged-in .admin-logout {
+            display: inline-block;
+        }
+
+        /* إخفاء رابط لوحة التحكم */
+        .admin-link-hidden {
+            display: none !important;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
@@ -684,6 +715,17 @@
     </style>
 </head>
 <body>
+    <!-- نافذة تسجيل الدخول للوحة التحكم فقط -->
+    <div id="adminLoginOverlay" class="admin-login-overlay">
+        <div class="admin-login-form">
+            <h2>تسجيل الدخول إلى لوحة التحكم</h2>
+            <input type="password" id="adminPassword" placeholder="أدخل كلمة المرور">
+            <button class="btn" id="adminLoginBtn">دخول</button>
+            <div class="admin-login-error" id="adminLoginError">كلمة المرور غير صحيحة</div>
+            <div class="admin-login-error" id="adminLoginBlocked" style="display: none;">تم حظر الوصول للوحة التحكم بسبب كثرة المحاولات الخاطئة</div>
+        </div>
+    </div>
+
     <!-- Scroll to Top Button -->
     <button class="scroll-to-top" id="scrollToTop">
         <i class="fas fa-chevron-up"></i>
@@ -702,7 +744,8 @@
                     <li><a class="nav-link" data-target="works">أعمالي</a></li>
                     <li><a class="nav-link" data-target="services">خدماتي</a></li>
                     <li><a class="nav-link" data-target="contact">اتصل بي</a></li>
-                    <li><a class="nav-link" data-target="admin">لوحة التحكم</a></li>
+                    <li><a class="nav-link admin-link" data-target="admin">لوحة التحكم</a></li>
+                    <li><a class="admin-only admin-logout" id="adminLogoutBtn">تسجيل الخروج</a></li>
                 </ul>
             </nav>
         </div>
@@ -827,53 +870,6 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">آراء العملاء</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "عمل عبدالله كان ممتازاً ومحترفاً. قام بتسليم المشروع في الوقت المحدد وتجاوز توقعاتي. أنصح بالتعامل معه بشدة."
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="عميل" class="author-avatar">
-                        <div class="author-info">
-                            <h4>أحمد محمد</h4>
-                            <p>مدير شركة تقنية</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "شكراً لعبدالله على العمل الرائع في موقعنا. التفاصيل والجودة كانت استثنائية. سنعمل معه مرة أخرى بالتأكيد."
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="عميلة" class="author-avatar">
-                        <div class="author-info">
-                            <h4>فاطمة أحمد</h4>
-                            <p>صاحبة متجر إلكتروني</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "تعاملت مع العديد من المطورين، لكن عبدالله يتميز بالإبداع والدقة. موقعنا الجديد ساعد في زيادة مبيعاتنا بنسبة 40%."
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="عميل" class="author-avatar">
-                        <div class="author-info">
-                            <h4>خالد إبراهيم</h4>
-                            <p>رائد أعمال</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Contact Section -->
     <section id="contact" class="content-section contact">
         <div class="container">
@@ -925,7 +921,7 @@
     </section>
 
     <!-- Admin Panel -->
-    <section id="admin" class="content-section admin-panel">
+    <section id="admin" class="content-section admin-panel admin-only">
         <div class="container">
             <h2 class="section-title">لوحة التحكم</h2>
             
@@ -960,6 +956,24 @@
             <div class="admin-section">
                 <h3>إدارة الأعمال الحالية</h3>
                 <div id="works-list"></div>
+            </div>
+            
+            <div class="admin-section">
+                <h3>تغيير كلمة مرور لوحة التحكم</h3>
+                <div class="form-group">
+                    <label for="current-password">كلمة المرور الحالية</label>
+                    <input type="password" id="current-password" placeholder="أدخل كلمة المرور الحالية">
+                </div>
+                <div class="form-group">
+                    <label for="new-password">كلمة المرور الجديدة</label>
+                    <input type="password" id="new-password" placeholder="أدخل كلمة المرور الجديدة">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">تأكيد كلمة المرور الجديدة</label>
+                    <input type="password" id="confirm-password" placeholder="أعد إدخال كلمة المرور الجديدة">
+                </div>
+                <button id="change-password-btn" class="btn">تغيير كلمة المرور</button>
+                <div id="password-change-message" style="margin-top: 10px;"></div>
             </div>
         </div>
     </section>
@@ -1017,6 +1031,9 @@
     <script>
         // قاعدة البيانات المحلية باستخدام localStorage
         const DB_NAME = 'abdullahPortfolio';
+        const ADMIN_PASSWORD_KEY = 'adminPassword';
+        const FAILED_LOGIN_ATTEMPTS_KEY = 'failedLoginAttempts';
+        const ADMIN_BLOCKED_KEY = 'adminBlocked';
         
         // تهيئة قاعدة البيانات إذا لم تكن موجودة
         function initializeDB() {
@@ -1055,12 +1072,134 @@
                 };
                 localStorage.setItem(DB_NAME, JSON.stringify(defaultData));
             }
+            
+            // تهيئة كلمة المرور الافتراضية إذا لم تكن موجودة
+            if (!localStorage.getItem(ADMIN_PASSWORD_KEY)) {
+                localStorage.setItem(ADMIN_PASSWORD_KEY, 'admin123');
+            }
+            
             return JSON.parse(localStorage.getItem(DB_NAME));
+        }
+        
+        // الحصول على كلمة المرور الحالية
+        function getAdminPassword() {
+            return localStorage.getItem(ADMIN_PASSWORD_KEY) || 'admin123';
+        }
+        
+        // تغيير كلمة المرور
+        function changeAdminPassword(currentPassword, newPassword) {
+            const currentStoredPassword = getAdminPassword();
+            
+            if (currentPassword !== currentStoredPassword) {
+                return { success: false, message: 'كلمة المرور الحالية غير صحيحة' };
+            }
+            
+            if (newPassword.length < 4) {
+                return { success: false, message: 'يجب أن تكون كلمة المرور الجديدة 4 أحرف على الأقل' };
+            }
+            
+            localStorage.setItem(ADMIN_PASSWORD_KEY, newPassword);
+            return { success: true, message: 'تم تغيير كلمة المرور بنجاح' };
+        }
+        
+        // الحصول على عدد المحاولات الخاطئة
+        function getFailedLoginAttempts() {
+            return parseInt(localStorage.getItem(FAILED_LOGIN_ATTEMPTS_KEY) || '0');
+        }
+        
+        // زيادة عدد المحاولات الخاطئة
+        function incrementFailedLoginAttempts() {
+            const attempts = getFailedLoginAttempts() + 1;
+            localStorage.setItem(FAILED_LOGIN_ATTEMPTS_KEY, attempts.toString());
+            
+            // إذا وصلت المحاولات إلى 3، حظر الوصول
+            if (attempts >= 3) {
+                localStorage.setItem(ADMIN_BLOCKED_KEY, 'true');
+                hideAdminLink();
+            }
+            
+            return attempts;
+        }
+        
+        // إعادة تعيين عدد المحاولات الخاطئة
+        function resetFailedLoginAttempts() {
+            localStorage.removeItem(FAILED_LOGIN_ATTEMPTS_KEY);
+            localStorage.removeItem(ADMIN_BLOCKED_KEY);
+            showAdminLink();
+        }
+        
+        // التحقق مما إذا كان الوصول محظوراً
+        function isAdminBlocked() {
+            return localStorage.getItem(ADMIN_BLOCKED_KEY) === 'true';
+        }
+        
+        // إخفاء رابط لوحة التحكم
+        function hideAdminLink() {
+            document.querySelectorAll('.admin-link').forEach(link => {
+                link.classList.add('admin-link-hidden');
+            });
+        }
+        
+        // إظهار رابط لوحة التحكم
+        function showAdminLink() {
+            document.querySelectorAll('.admin-link').forEach(link => {
+                link.classList.remove('admin-link-hidden');
+            });
         }
         
         // حفظ البيانات في قاعدة البيانات
         function saveToDB(data) {
             localStorage.setItem(DB_NAME, JSON.stringify(data));
+        }
+        
+        // التحقق من حالة تسجيل الدخول للوحة التحكم
+        function checkAdminLoginStatus() {
+            const isLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
+            if (isLoggedIn) {
+                document.body.classList.add('admin-logged-in');
+                document.getElementById('adminLoginOverlay').style.display = 'none';
+            } else {
+                document.body.classList.remove('admin-logged-in');
+            }
+            return isLoggedIn;
+        }
+        
+        // تسجيل الدخول للوحة التحكم
+        function adminLogin(password) {
+            // التحقق من حالة الحظر
+            if (isAdminBlocked()) {
+                document.getElementById('adminLoginError').style.display = 'none';
+                document.getElementById('adminLoginBlocked').style.display = 'block';
+                return false;
+            }
+            
+            if (password === getAdminPassword()) {
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                resetFailedLoginAttempts(); // إعادة تعيين المحاولات عند تسجيل الدخول بنجاح
+                checkAdminLoginStatus();
+                return true;
+            } else {
+                const attempts = incrementFailedLoginAttempts();
+                document.getElementById('adminLoginError').style.display = 'block';
+                document.getElementById('adminLoginError').textContent = `كلمة المرور غير صحيحة. المحاولات المتبقية: ${3 - attempts}`;
+                document.getElementById('adminLoginBlocked').style.display = 'none';
+                
+                // إذا وصلت المحاولات إلى 3، عرض رسالة الحظر
+                if (attempts >= 3) {
+                    document.getElementById('adminLoginError').style.display = 'none';
+                    document.getElementById('adminLoginBlocked').style.display = 'block';
+                }
+                
+                return false;
+            }
+        }
+        
+        // تسجيل الخروج من لوحة التحكم
+        function adminLogout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            checkAdminLoginStatus();
+            // إعادة توجيه إلى الصفحة الرئيسية
+            document.querySelector('.nav-link[data-target="home"]').click();
         }
         
         // إرسال رسالة واتساب
@@ -1096,6 +1235,31 @@ ${message}
         
         // كود JavaScript للتنقل بين الأقسام
         document.addEventListener('DOMContentLoaded', function() {
+            // التحقق من حالة الحظر عند تحميل الصفحة
+            if (isAdminBlocked()) {
+                hideAdminLink();
+            }
+            
+            // التحقق من حالة تسجيل الدخول للوحة التحكم
+            checkAdminLoginStatus();
+            
+            // إعداد نظام المصادقة للوحة التحكم
+            document.getElementById('adminLoginBtn').addEventListener('click', function() {
+                const password = document.getElementById('adminPassword').value;
+                adminLogin(password);
+            });
+            
+            document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const password = document.getElementById('adminPassword').value;
+                    adminLogin(password);
+                }
+            });
+            
+            document.getElementById('adminLogoutBtn').addEventListener('click', function() {
+                adminLogout();
+            });
+            
             // تهيئة قاعدة البيانات
             const db = initializeDB();
             
@@ -1157,6 +1321,20 @@ ${message}
                     
                     const targetId = this.getAttribute('data-target');
                     
+                    // التحقق من الصلاحية للوصول إلى لوحة التحكم
+                    if (targetId === 'admin') {
+                        if (!checkAdminLoginStatus()) {
+                            document.getElementById('adminLoginOverlay').style.display = 'flex';
+                            return;
+                        }
+                        
+                        // إذا كان الوصول محظوراً، منع الوصول
+                        if (isAdminBlocked()) {
+                            alert('تم حظر الوصول إلى لوحة التحكم بسبب كثرة المحاولات الخاطئة');
+                            return;
+                        }
+                    }
+                    
                     // إخفاء جميع الأقسام
                     contentSections.forEach(section => {
                         section.classList.remove('active');
@@ -1195,7 +1373,7 @@ ${message}
                 worksList.innerHTML = '';
                 
                 db.works.forEach(work => {
-                    // إضافة العمل إلى المعرض
+                    // إضافة العمل إلى المعرض (للجميع)
                     const workItem = document.createElement('div');
                     workItem.className = 'work-card';
                     workItem.innerHTML = `
@@ -1207,30 +1385,34 @@ ${message}
                             <p>${work.description}</p>
                             <div class="work-links">
                                 ${work.url ? `<a href="${work.url}" target="_blank" class="btn">زيارة الموقع</a>` : ''}
-                                <button class="btn btn-outline delete-work" data-id="${work.id}">حذف</button>
+                                ${checkAdminLoginStatus() ? `<button class="btn btn-outline delete-work" data-id="${work.id}">حذف</button>` : ''}
                             </div>
                         </div>
                     `;
                     worksContainer.appendChild(workItem);
                     
-                    // إضافة العمل إلى قائمة الإدارة
-                    const workListItem = document.createElement('div');
-                    workListItem.className = 'work-list-item';
-                    workListItem.style.cssText = 'background: var(--primary-dark); padding: 15px; margin-bottom: 10px; border-radius: 5px;';
-                    workListItem.innerHTML = `
-                        <h4>${work.title}</h4>
-                        <button class="btn btn-outline delete-work" data-id="${work.id}" style="margin-top: 10px;">حذف</button>
-                    `;
-                    worksList.appendChild(workListItem);
+                    // إضافة العمل إلى قائمة الإدارة (فقط للمسجلين دخولاً)
+                    if (checkAdminLoginStatus()) {
+                        const workListItem = document.createElement('div');
+                        workListItem.className = 'work-list-item';
+                        workListItem.style.cssText = 'background: var(--primary-dark); padding: 15px; margin-bottom: 10px; border-radius: 5px;';
+                        workListItem.innerHTML = `
+                            <h4>${work.title}</h4>
+                            <button class="btn btn-outline delete-work" data-id="${work.id}" style="margin-top: 10px;">حذف</button>
+                        `;
+                        worksList.appendChild(workListItem);
+                    }
                 });
                 
-                // إضافة مستمعي الأحداث لأزرار الحذف
-                document.querySelectorAll('.delete-work').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const workId = parseInt(this.getAttribute('data-id'));
-                        deleteWork(workId);
+                // إضافة مستمعي الأحداث لأزرار الحذف (فقط للمسجلين دخولاً)
+                if (checkAdminLoginStatus()) {
+                    document.querySelectorAll('.delete-work').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const workId = parseInt(this.getAttribute('data-id'));
+                            deleteWork(workId);
+                        });
                     });
-                });
+                }
             }
             
             // حذف عمل
@@ -1262,6 +1444,11 @@ ${message}
             });
             
             uploadProfileBtn.addEventListener('click', function() {
+                if (!checkAdminLoginStatus()) {
+                    alert('يجب تسجيل الدخول أولاً');
+                    return;
+                }
+                
                 if (profilePreview.src) {
                     const db = initializeDB();
                     db.profile.image = profilePreview.src;
@@ -1277,6 +1464,11 @@ ${message}
             const addWorkBtn = document.getElementById('add-work-btn');
             
             addWorkBtn.addEventListener('click', function() {
+                if (!checkAdminLoginStatus()) {
+                    alert('يجب تسجيل الدخول أولاً');
+                    return;
+                }
+                
                 const workTitle = document.getElementById('work-title').value;
                 const workDescription = document.getElementById('work-description').value;
                 const workUrl = document.getElementById('work-url').value;
@@ -1316,6 +1508,48 @@ ${message}
                 };
                 
                 reader.readAsDataURL(file);
+            });
+            
+            // تغيير كلمة المرور
+            const changePasswordBtn = document.getElementById('change-password-btn');
+            const passwordChangeMessage = document.getElementById('password-change-message');
+            
+            changePasswordBtn.addEventListener('click', function() {
+                if (!checkAdminLoginStatus()) {
+                    alert('يجب تسجيل الدخول أولاً');
+                    return;
+                }
+                
+                const currentPassword = document.getElementById('current-password').value;
+                const newPassword = document.getElementById('new-password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                
+                if (!currentPassword || !newPassword || !confirmPassword) {
+                    passwordChangeMessage.textContent = 'يرجى ملء جميع الحقول';
+                    passwordChangeMessage.style.color = '#ff6b6b';
+                    return;
+                }
+                
+                if (newPassword !== confirmPassword) {
+                    passwordChangeMessage.textContent = 'كلمة المرور الجديدة غير متطابقة';
+                    passwordChangeMessage.style.color = '#ff6b6b';
+                    return;
+                }
+                
+                const result = changeAdminPassword(currentPassword, newPassword);
+                
+                if (result.success) {
+                    passwordChangeMessage.textContent = result.message;
+                    passwordChangeMessage.style.color = '#00cc66';
+                    
+                    // إعادة تعيين الحقول
+                    document.getElementById('current-password').value = '';
+                    document.getElementById('new-password').value = '';
+                    document.getElementById('confirm-password').value = '';
+                } else {
+                    passwordChangeMessage.textContent = result.message;
+                    passwordChangeMessage.style.color = '#ff6b6b';
+                }
             });
             
             // نموذج الاتصال
