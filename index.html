@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض أعمال عبدالله أحمد - مطور ويب محترف</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #0a0a0a;
+            --primary-light: #1a1a1a;
+            --accent-blue: #0066ff;
+            --accent-green: #00cc66;
+            --accent-purple: #8c52ff;
+            --text-light: #f0f0f0;
+            --text-gray: #a0a0a0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: rgba(26, 26, 26, 0.95);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-right: 10px;
+        }
+        
+        .logo span {
+            color: var(--accent-green);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-blue);
+        }
+        
+        nav ul li a.active {
+            color: var(--accent-blue);
+        }
+        
+        nav ul li a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            display: none;
+            padding: 80px 0;
+            min-height: 80vh;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textGlow 2s infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px rgba(0, 102, 255, 0.5); }
+            to { text-shadow: 0 0 20px rgba(140, 82, 255, 0.8); }
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: var(--text-gray);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent-blue);
+            color: var(--accent-blue);
+        }
+        
+        .btn-whatsapp {
+            background: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        /* About Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            color: var(--text-gray);
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .skill {
+            background: var(--primary-light);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: transform 0.3s;
+        }
+        
+        .skill:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+        }
+        
+        .profile-image {
+            text-align: center;
+            position: relative;
+        }
+        
+        .profile-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s;
+        }
+        
+        .profile-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Stats Section */
+        .stats {
+            background: var(--primary-light);
+            padding: 60px 0;
+            margin-top: 50px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: block;
+        }
+        
+        .stat-text {
+            color: var(--text-gray);
+            margin-top: 10px;
+        }
+        
+        /* Works Section */
+        .works {
+            background-color: var(--primary-light);
+        }
+        
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .work-card {
+            background-color: var(--primary-dark);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .work-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .work-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .work-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .work-card:hover .work-img img {
+            transform: scale(1.1);
+        }
+        
+        .work-content {
+            padding: 20px;
+        }
+        
+        .work-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--accent-green);
+        }
+        
+        .work-content p {
+            color: var(--text-gray);
+            margin-bottom: 15px;
+        }
+        
+        .work-links {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .service-card {
+            background-color: var(--primary-light);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+        }
+        
+        .service-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .service-content p {
+            color: var(--text-gray);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            background: var(--primary-light);
+            padding: 80px 0;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: var(--primary-dark);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .testimonial-text {
+            color: var(--text-gray);
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            color: var(--accent-green);
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: var(--primary-light);
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--primary-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .contact-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        /* Admin Panel */
+        .admin-section {
+            background-color: var(--primary-light);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .admin-section h3 {
+            margin-bottom: 20px;
+            color: var(--accent-green);
+        }
+        
+        .file-input {
+            margin-bottom: 15px;
+        }
+        
+        .preview-image {
+            max-width: 200px;
+            margin-top: 10px;
+            display: none;
+            border-radius: 5px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-light);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--accent-green);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent-blue);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+        
+        .scroll-to-top:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .work-links {
+                flex-direction: column;
+            }
+            
+            .contact-options {
+                flex-direction: column;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <h1>عبدالله <span>أحمد</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a class="nav-link active" data-target="home">الرئيسية</a></li>
+                    <li><a class="nav-link" data-target="about">من أنا</a></li>
+                    <li><a class="nav-link" data-target="works">أعمالي</a></li>
+                    <li><a class="nav-link" data-target="services">خدماتي</a></li>
+                    <li><a class="nav-link" data-target="contact">اتصل بي</a></li>
+                    <li><a class="nav-link" data-target="admin">لوحة التحكم</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home" class="content-section active">
+        <div class="hero">
+            <div class="container hero-content">
+                <h2>مرحباً، أنا عبدالله أحمد</h2>
+                <p>مطور ويب ومصمم واجهات مستخدم محترف، أقدم حلولاً رقمية مبتكرة تجمع بين الجماليات والوظائف. استعرض أعمالي واكتشف كيف يمكنني مساعدتك في تحقيق أهدافك الرقمية.</p>
+                <a class="btn nav-link" data-target="works">شاهد أعمالي</a>
+                <a class="btn btn-outline nav-link" data-target="contact" style="margin-right: 15px;">تواصل معي</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="content-section">
+        <div class="container">
+            <h2 class="section-title">من أنا</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>مرحباً، اسمي عبدالله أحمد</h2>
+                    <p>أنا مطور ويب محترف مع 5 سنوات من الخبرة في مجال تطوير الويب وتصميم واجهات المستخدم. أتمتع بشغف كبير لإنشاء تجارب رقمية متميزة وأسعى دائماً لتقديم أفضل الحلول لعملائي.</p>
+                    <p>خلال مسيرتي المهنية، عملت على العديد من المشاريع الناجحة التي ساعدت عملائي على تحقيق أهدافهم وزيادة وجودهم الرقمي.</p>
+                    <p>أؤمن بأن الجودة والاحترافية هما أساس النجاح في أي عمل، لذلك أحرص دائماً على تقديم أفضل ما لدي في كل مشروع.</p>
+                    
+                    <div class="skills">
+                        <div class="skill">HTML5 & CSS3</div>
+                        <div class="skill">JavaScript</div>
+                        <div class="skill">React</div>
+                        <div class="skill">Vue.js</div>
+                        <div class="skill">UI/UX Design</div>
+                        <div class="skill">Responsive Design</div>
+                        <div class="skill">WordPress</div>
+                        <div class="skill">PHP & MySQL</div>
+                        <div class="skill">Git & GitHub</div>
+                        <div class="skill">RESTful APIs</div>
+                    </div>
+                    
+                    <a class="btn nav-link" data-target="contact" style="margin-top: 20px;">اطلب خدمة</a>
+                </div>
+                <div class="profile-image">
+                    <img id="profile-pic" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="صورتي الشخصية">
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number" id="projectsCount">30</span>
+                        <span class="stat-text">مشروع مكتمل</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="clientsCount">25</span>
+                        <span class="stat-text">عميل راضٍ</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="experienceCount">5</span>
+                        <span class="stat-text">سنوات خبرة</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="supportCount">24/7</span>
+                        <span class="stat-text">دعم فني</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works Section -->
+    <section id="works" class="content-section works">
+        <div class="container">
+            <h2 class="section-title">أعمالي</h2>
+            <div class="works-grid" id="works-container">
+                <!-- سيتم تحميل الأعمال من قاعدة البيانات هنا -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="content-section">
+        <div class="container">
+            <h2 class="section-title">خدماتي</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+                    <div class="service-content">
+                        <h3>تطوير الويب</h3>
+                        <p>تصميم وتطوير مواقع ويب متكاملة باستخدام أحدث التقنيات لضمان أداء متميز وتجربة مستخدم فريدة.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-palette"></i></div>
+                    <div class="service-content">
+                        <h3>تصميم واجهات المستخدم</h3>
+                        <p>تصميم واجهات مستخدم جذابة وسهلة الاستخدام تعكس هوية علامتك التجارية وتلبي توقعات عملائك.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <div class="service-content">
+                        <h3>تصميم متجاوب</h3>
+                        <p>تطوير مواقع ويب متجاوبة تعمل بشكل مثالي على جميع الأجهزة من الهواتف الذكية إلى أجهزة الكمبيوتر.</p>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="service-content">
+                        <h3>متاجر إلكترونية</h3>
+                        <p>إنشاء متاجر إلكترونية متكاملة مع أنظمة دفع آمنة وإدارة مخزون لتعزيز مبيعاتك عبر الإنترنت.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">آراء العملاء</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "عمل عبدالله كان ممتازاً ومحترفاً. قام بتسليم المشروع في الوقت المحدد وتجاوز توقعاتي. أنصح بالتعامل معه بشدة."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="عميل" class="author-avatar">
+                        <div class="author-info">
+                            <h4>أحمد محمد</h4>
+                            <p>مدير شركة تقنية</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "شكراً لعبدالله على العمل الرائع في موقعنا. التفاصيل والجودة كانت استثنائية. سنعمل معه مرة أخرى بالتأكيد."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="عميلة" class="author-avatar">
+                        <div class="author-info">
+                            <h4>فاطمة أحمد</h4>
+                            <p>صاحبة متجر إلكتروني</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "تعاملت مع العديد من المطورين، لكن عبدالله يتميز بالإبداع والدقة. موقعنا الجديد ساعد في زيادة مبيعاتنا بنسبة 40%."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="عميل" class="author-avatar">
+                        <div class="author-info">
+                            <h4>خالد إبراهيم</h4>
+                            <p>رائد أعمال</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="content-section contact">
+        <div class="container">
+            <h2 class="section-title">اتصل بي</h2>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">الاسم الكامل</label>
+                        <input type="text" id="name" required placeholder="أدخل اسمك الكامل">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" id="email" required placeholder="example@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">رقم الهاتف (اختياري)</label>
+                        <input type="tel" id="phone" placeholder="+20123456789">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">نوع الخدمة المطلوبة</label>
+                        <select id="service" class="form-group input" style="width: 100%; padding: 12px 15px; background-color: var(--primary-dark); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 5px; color: var(--text-light);">
+                            <option value="">اختر الخدمة</option>
+                            <option value="web">تطوير موقع ويب</option>
+                            <option value="design">تصميم واجهات</option>
+                            <option value="ecommerce">متجر إلكتروني</option>
+                            <option value="other">خدمة أخرى</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">الرسالة</label>
+                        <textarea id="message" required placeholder="أخبرني عن مشروعك..."></textarea>
+                    </div>
+                    <button type="submit" class="btn" id="submitBtn">
+                        <span class="loading" id="formLoading" style="display: none;"></span>
+                        إرسال الرسالة
+                    </button>
+                </form>
+                
+                <div class="contact-options">
+                    <a href="https://wa.me/201150609878?text=مرحباً%20عبدالله،%20أرغب%20في%20الاستفسار%20عن%20خدماتك" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> تواصل عبر واتساب
+                    </a>
+                    <a href="tel:+201150609878" class="btn btn-outline">
+                        <i class="fas fa-phone"></i> اتصل بي مباشرة
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Panel -->
+    <section id="admin" class="content-section admin-panel">
+        <div class="container">
+            <h2 class="section-title">لوحة التحكم</h2>
+            
+            <div class="admin-section">
+                <h3>تغيير الصورة الشخصية</h3>
+                <input type="file" id="profile-image-input" class="file-input" accept="image/*">
+                <button id="upload-profile-btn" class="btn">رفع الصورة</button>
+                <img id="profile-preview" class="preview-image" src="" alt="معاينة الصورة">
+            </div>
+            
+            <div class="admin-section">
+                <h3>إضافة عمل جديد</h3>
+                <div class="form-group">
+                    <label for="work-title">عنوان العمل</label>
+                    <input type="text" id="work-title" placeholder="اسم المشروع">
+                </div>
+                <div class="form-group">
+                    <label for="work-description">وصف العمل</label>
+                    <textarea id="work-description" rows="3" placeholder="وصف مختصر للمشروع"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="work-url">رابط الموقع (اختياري)</label>
+                    <input type="url" id="work-url" placeholder="https://example.com">
+                </div>
+                <div class="form-group">
+                    <label for="work-image">صورة العمل</label>
+                    <input type="file" id="work-image" class="file-input" accept="image/*">
+                </div>
+                <button id="add-work-btn" class="btn">إضافة العمل</button>
+            </div>
+            
+            <div class="admin-section">
+                <h3>إدارة الأعمال الحالية</h3>
+                <div id="works-list"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>عبدالله أحمد</h3>
+                    <p>مطور ويب ومصمم واجهات مستخدم محترف. أساعد الشركات والأفراد في إنشاء وجود رقمي متميز يعكس هويتهم ويحقق أهدافهم.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a class="nav-link" data-target="home">الرئيسية</a></li>
+                        <li><a class="nav-link" data-target="about">من أنا</a></li>
+                        <li><a class="nav-link" data-target="works">أعمالي</a></li>
+                        <li><a class="nav-link" data-target="services">خدماتي</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>خدماتي</h3>
+                    <ul>
+                        <li><a class="nav-link" data-target="services">تطوير الويب</a></li>
+                        <li><a class="nav-link" data-target="services">تصميم واجهات المستخدم</a></li>
+                        <li><a class="nav-link" data-target="services">تصميم متجاوب</a></li>
+                        <li><a class="nav-link" data-target="services">متاجر إلكترونية</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>اتصل بي</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +201150609878</li>
+                        <li><i class="fas fa-envelope"></i> abdullah@example.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> القاهرة، مصر</li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-behance"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2023 عبدالله أحمد. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // قاعدة البيانات المحلية باستخدام localStorage
+        const DB_NAME = 'abdullahPortfolio';
+        
+        // تهيئة قاعدة البيانات إذا لم تكن موجودة
+        function initializeDB() {
+            if (!localStorage.getItem(DB_NAME)) {
+                const defaultData = {
+                    profile: {
+                        name: "عبدالله أحمد",
+                        title: "مطور ويب ومصمم واجهات مستخدم",
+                        bio: "أنا مطور ويب محترف مع 5 سنوات من الخبرة في مجال تطوير الويب وتصميم واجهات المستخدم.",
+                        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80"
+                    },
+                    works: [
+                        {
+                            id: 1,
+                            title: "موقع شركة تقنية",
+                            description: "تصميم وتطوير موقع إلكتروني متكامل لشركة تقنية متخصصة في حلول الأعمال.",
+                            image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
+                            url: "https://example.com"
+                        },
+                        {
+                            id: 2,
+                            title: "متجر إلكتروني للأزياء",
+                            description: "إنشاء متجر إلكتروني متكامل لبيع المنتجات الأزياء مع نظام دفع وإدارة طلبات.",
+                            image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
+                            url: "https://example-store.com"
+                        },
+                        {
+                            id: 3,
+                            title: "منصة تعليمية",
+                            description: "تطوير منصة تعليمية متكاملة مع نظام إدارة المحتوى والمستخدمين والدروس التفاعلية.",
+                            image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
+                            url: "https://learning-platform.com"
+                        }
+                    ],
+                    messages: []
+                };
+                localStorage.setItem(DB_NAME, JSON.stringify(defaultData));
+            }
+            return JSON.parse(localStorage.getItem(DB_NAME));
+        }
+        
+        // حفظ البيانات في قاعدة البيانات
+        function saveToDB(data) {
+            localStorage.setItem(DB_NAME, JSON.stringify(data));
+        }
+        
+        // إرسال رسالة واتساب
+        function sendWhatsAppMessage(name, email, phone, service, message) {
+            const phoneNumber = "201150609878";
+            let serviceText = "";
+            
+            if (service === "web") serviceText = "تطوير موقع ويب";
+            else if (service === "design") serviceText = "تصميم واجهات";
+            else if (service === "ecommerce") serviceText = "متجر إلكتروني";
+            else if (service === "other") serviceText = "خدمة أخرى";
+            else serviceText = "غير محدد";
+            
+            const text = `مرحباً عبدالله،
+
+لدي استفسار حول خدماتك:
+
+الاسم: ${name}
+البريد الإلكتروني: ${email}
+${phone ? `رقم الهاتف: ${phone}` : ''}
+نوع الخدمة: ${serviceText}
+
+الرسالة:
+${message}
+
+أتطلع لردك قريباً!`;
+            
+            const encodedText = encodeURIComponent(text);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedText}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        // كود JavaScript للتنقل بين الأقسام
+        document.addEventListener('DOMContentLoaded', function() {
+            // تهيئة قاعدة البيانات
+            const db = initializeDB();
+            
+            // تحميل البيانات في الصفحة
+            loadProfileData();
+            loadWorksData();
+            
+            // إعداد زر التمرير للأعلى
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.style.display = 'flex';
+                } else {
+                    scrollToTopBtn.style.display = 'none';
+                }
+            });
+            
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // إعداد عداد الإحصائيات
+            function animateCounter(element, target, duration) {
+                let start = 0;
+                const increment = target / (duration / 16);
+                const timer = setInterval(() => {
+                    start += increment;
+                    if (start >= target) {
+                        element.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        element.textContent = Math.floor(start);
+                    }
+                }, 16);
+            }
+            
+            // تفعيل العدادات عند التمرير إلى قسم الإحصائيات
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(document.getElementById('projectsCount'), 30, 2000);
+                        animateCounter(document.getElementById('clientsCount'), 25, 2000);
+                        animateCounter(document.getElementById('experienceCount'), 5, 2000);
+                        document.getElementById('supportCount').textContent = '24/7';
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(document.querySelector('.stats'));
+            
+            // التنقل بين الأقسام
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('data-target');
+                    
+                    // إخفاء جميع الأقسام
+                    contentSections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    
+                    // إزالة النشاط من جميع الروابط
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // إظهار القسم المطلوب وإضافة النشاط للرابط
+                    document.getElementById(targetId).classList.add('active');
+                    this.classList.add('active');
+                    
+                    // التمرير لأعلى الصفحة
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+            
+            // تحميل بيانات الملف الشخصي
+            function loadProfileData() {
+                const profile = db.profile;
+                document.querySelector('.logo h1').innerHTML = `عبدالله <span>أحمد</span>`;
+                document.querySelector('.hero h2').textContent = `مرحباً، أنا ${profile.name}`;
+                document.querySelector('.about-text h2').textContent = `مرحباً، اسمي ${profile.name}`;
+                document.querySelector('.about-text p').textContent = profile.bio;
+                document.getElementById('profile-pic').src = profile.image;
+            }
+            
+            // تحميل بيانات الأعمال
+            function loadWorksData() {
+                const worksContainer = document.getElementById('works-container');
+                const worksList = document.getElementById('works-list');
+                
+                worksContainer.innerHTML = '';
+                worksList.innerHTML = '';
+                
+                db.works.forEach(work => {
+                    // إضافة العمل إلى المعرض
+                    const workItem = document.createElement('div');
+                    workItem.className = 'work-card';
+                    workItem.innerHTML = `
+                        <div class="work-img">
+                            <img src="${work.image}" alt="${work.title}">
+                        </div>
+                        <div class="work-content">
+                            <h3>${work.title}</h3>
+                            <p>${work.description}</p>
+                            <div class="work-links">
+                                ${work.url ? `<a href="${work.url}" target="_blank" class="btn">زيارة الموقع</a>` : ''}
+                                <button class="btn btn-outline delete-work" data-id="${work.id}">حذف</button>
+                            </div>
+                        </div>
+                    `;
+                    worksContainer.appendChild(workItem);
+                    
+                    // إضافة العمل إلى قائمة الإدارة
+                    const workListItem = document.createElement('div');
+                    workListItem.className = 'work-list-item';
+                    workListItem.style.cssText = 'background: var(--primary-dark); padding: 15px; margin-bottom: 10px; border-radius: 5px;';
+                    workListItem.innerHTML = `
+                        <h4>${work.title}</h4>
+                        <button class="btn btn-outline delete-work" data-id="${work.id}" style="margin-top: 10px;">حذف</button>
+                    `;
+                    worksList.appendChild(workListItem);
+                });
+                
+                // إضافة مستمعي الأحداث لأزرار الحذف
+                document.querySelectorAll('.delete-work').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const workId = parseInt(this.getAttribute('data-id'));
+                        deleteWork(workId);
+                    });
+                });
+            }
+            
+            // حذف عمل
+            function deleteWork(workId) {
+                if (confirm('هل أنت متأكد من حذف هذا العمل؟')) {
+                    const db = initializeDB();
+                    db.works = db.works.filter(work => work.id !== workId);
+                    saveToDB(db);
+                    loadWorksData();
+                }
+            }
+            
+            // تغيير الصورة الشخصية
+            const profileImageInput = document.getElementById('profile-image-input');
+            const profilePreview = document.getElementById('profile-preview');
+            const uploadProfileBtn = document.getElementById('upload-profile-btn');
+            const profilePic = document.getElementById('profile-pic');
+            
+            profileImageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        profilePreview.src = e.target.result;
+                        profilePreview.style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            uploadProfileBtn.addEventListener('click', function() {
+                if (profilePreview.src) {
+                    const db = initializeDB();
+                    db.profile.image = profilePreview.src;
+                    saveToDB(db);
+                    profilePic.src = profilePreview.src;
+                    alert('تم تحديث الصورة الشخصية بنجاح!');
+                } else {
+                    alert('يرجى اختيار صورة أولاً');
+                }
+            });
+            
+            // إضافة عمل جديد
+            const addWorkBtn = document.getElementById('add-work-btn');
+            
+            addWorkBtn.addEventListener('click', function() {
+                const workTitle = document.getElementById('work-title').value;
+                const workDescription = document.getElementById('work-description').value;
+                const workUrl = document.getElementById('work-url').value;
+                const workImageInput = document.getElementById('work-image');
+                
+                if (!workTitle || !workDescription || !workImageInput.files[0]) {
+                    alert('يرجى ملء جميع الحقول الإلزامية');
+                    return;
+                }
+                
+                const file = workImageInput.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const db = initializeDB();
+                    const newWork = {
+                        id: Date.now(), // استخدام الطابع الزمني كمعرف فريد
+                        title: workTitle,
+                        description: workDescription,
+                        url: workUrl || null,
+                        image: e.target.result
+                    };
+                    
+                    db.works.unshift(newWork);
+                    saveToDB(db);
+                    
+                    // إعادة تعيين الحقول
+                    document.getElementById('work-title').value = '';
+                    document.getElementById('work-description').value = '';
+                    document.getElementById('work-url').value = '';
+                    document.getElementById('work-image').value = '';
+                    
+                    // إعادة تحميل الأعمال
+                    loadWorksData();
+                    
+                    alert('تم إضافة العمل بنجاح!');
+                };
+                
+                reader.readAsDataURL(file);
+            });
+            
+            // نموذج الاتصال
+            const contactForm = document.getElementById('contactForm');
+            const formLoading = document.getElementById('formLoading');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const service = document.getElementById('service').value;
+                const message = document.getElementById('message').value;
+                
+                // إظهار تحميل
+                formLoading.style.display = 'inline-block';
+                submitBtn.disabled = true;
+                
+                // محاكاة عملية الإرسال
+                setTimeout(() => {
+                    // إرسال رسالة واتساب
+                    sendWhatsAppMessage(name, email, phone, service, message);
+                    
+                    // حفظ الرسالة في قاعدة البيانات
+                    const db = initializeDB();
+                    const newMessage = {
+                        id: Date.now(),
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        service: service,
+                        message: message,
+                        date: new Date().toLocaleString('ar-SA')
+                    };
+                    
+                    db.messages.push(newMessage);
+                    saveToDB(db);
+                    
+                    // إخفاء التحميل
+                    formLoading.style.display = 'none';
+                    submitBtn.disabled = false;
+                    
+                    alert('سيتم فتح تطبيق واتساب لإرسال رسالتك. شكراً لتواصلك!');
+                    contactForm.reset();
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
